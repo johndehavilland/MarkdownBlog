@@ -1,0 +1,49 @@
+﻿@using MarkdownBlog.Services
+@using PagedList.Mvc;
+@using PagedList;
+
+@model IEnumerable<MarkdownBlog.Models.BlogPost>
+
+@{
+    ViewBag.Title = ".:Welcome:.";
+    string layoutID = "hero-unit";
+    int truncateCount = 400;
+}
+@foreach (var item in Model)
+{
+   
+    <div class='@(layoutID)'>
+
+        <div id="post">
+            <div id="blog-title">
+                @Html.DisplayFor(modelItem => item.BlogPostTitle)
+                <span class="icons">
+                    <a href="@Url.Action("Details", "Blog", new { id = @item.BlogPostId })"><img src="@Url.Content("~/Content/images/book.png")" alt="Read More" />
+                Read More</a></span>
+                @if (Request.IsAuthenticated)
+                {
+                    <span class="icons">
+                        <a href="@Url.Action("Delete", "Blog", new { id = @item.BlogPostId })"><img src="@Url.Content("~/Content/images/bin.png")" alt="Delete Post" /></a>
+                    </span>
+                    <span class="icons">
+                        <a href="@Url.Action("Edit", "Blog", new { id = @item.BlogPostId })"><img src="@Url.Content("~/Content/images/pencil.png")" alt="Edit Post" /></a>
+                    </span>
+            }
+            </div>
+            <small>
+
+                @Html.DisplayFor(modelItem => item.CreatedOn)
+            </small>
+            @Html.Raw(HttpUtility.HtmlDecode(@item.BlogPostTextHTMLTruncate))
+        </div>
+    </div>
+                {
+       layoutID = "otherpost";
+       truncateCount = 200;
+    }
+}
+
+<!-- output a paging control that lets the user navigation to the previous page, next page, etc -->
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
+
+

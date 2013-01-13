@@ -1,0 +1,49 @@
+﻿@model MarkdownBlog.Models.BlogPost
+
+        <h2>
+            @Html.DisplayFor(model => model.BlogPostTitle)
+             @if (Request.IsAuthenticated)
+                {
+                    <span class="icons">
+                        <a href="@Url.Action("Delete", "Blog", new { id = Model.BlogPostId })"><img src="@Url.Content("~/Content/images/bin.png")" alt="Delete Post" /></a>
+                    </span>
+                    <span class="icons">
+                        <a href="@Url.Action("Edit", "Blog", new { id = Model.BlogPostId })"><img src="@Url.Content("~/Content/images/pencil.png")" alt="Edit Post" /></a>
+                    </span>
+            }
+        </h2>
+
+        <small>
+            @Html.DisplayFor(model => model.CreatedOn)
+        </small>
+        <p>
+            @Html.Raw(HttpUtility.HtmlDecode(Model.BlogPostTextHTML))
+        </p>
+        <div class="post-nav-older">
+            <ul class="nav nav-pills">
+               @if (ViewBag.OlderId != null)
+                {
+                    <li>
+                        @Html.ActionLink("Older", "Details", new { id = ViewBag.OlderId })
+                    </li>
+                }
+                else
+                {
+                    <li class="disabled"><a href="#">Oldest</a></li>
+                }
+            </ul>
+            </div>
+
+        <div class="post-nav-newer">
+            <ul class="nav nav-pills">
+                @if (ViewBag.NewerId != null)
+                {
+    
+                    <li>@Html.ActionLink("Newer", "Details", new { id = ViewBag.NewerId })</li>
+                }
+                else
+                {
+                    <li class="disabled"><a href="#">Newest</a></li>
+                }
+            </ul>
+        </div>

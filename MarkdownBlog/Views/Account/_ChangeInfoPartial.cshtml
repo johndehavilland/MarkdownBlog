@@ -1,0 +1,28 @@
+﻿@model MarkdownBlog.Models.UserProfile
+
+@using (Html.BeginForm("ManageProfile", "Account")) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <fieldset>
+        @Html.Hidden("UserId",(int)ViewBag.UserProfile.UserId)
+         @Html.Hidden("UserName", (string)ViewBag.UserProfile.UserName)
+        <legend>User Profile</legend>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.Twitter)
+                @@ @Html.TextBox("Twitter", (string)ViewBag.UserProfile.Twitter)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Email)
+                @Html.TextBox("Email", (string)ViewBag.UserProfile.Email)
+            </li>
+             <li>
+                @Html.LabelFor(m => m.Biography)
+                @Html.TextArea("Biography", (string)ViewBag.UserProfile.Biography, new {style="height: 200px; width: 60%;" })
+            </li>
+           
+        </ol>
+        <input type="submit" value="Change" class ="btn btn-medium"/>
+    </fieldset>
+}

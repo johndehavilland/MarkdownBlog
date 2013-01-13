@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>The Dark Inside</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+    @Styles.Render("~/Content/css")
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Libre+Baskerville:400,700,400italic' rel='stylesheet' type='text/css'>
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/Markdown.Converter.js"></script>
+    <script src="~/Scripts/Markdown.Sanitizer.js"></script>
+    <script src="~/Scripts/Markdown.Editor.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/Site.css" rel="stylesheet" media="screen">
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-37627306-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span1">
+            </div>
+            <div class="span10">
+
+                <header>
+
+                    <div class="main-title">
+                        @Html.ActionLink((string)@ViewBag.BlogTitle, "Index", "Blog",null, new { @class= "title-link"})| <span id="blog-by">a blog by </span>@Html.Partial("_NavigationPartial")
+                        @if (Request.IsAuthenticated)
+                        {
+                            <span class="large-icons"><a href ='@Url.Action("Create", "Blog")'>
+                                <img src="~/Content/images/add.png" /></a></span>
+                            <span class="large-icons"><a href ='@Url.Action("Manage", "Account")'>
+                                <img src="~/Content/images/user-large.png" /></a></span>
+                        }
+
+                    </div>
+                </header>
+                <div class ="row-fluid">
+                     <div class="span10">
+                @RenderBody()
+                </div>
+                    </div>
+                <div class ="row-fluid">
+                     <div class="span10">
+                <div class="footer">
+                    &copy; @DateTime.Now.Year - @ViewBag.OwnerDisplayName - @Html.Partial("_LoginPartial")
+                </div>
+                    </div></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

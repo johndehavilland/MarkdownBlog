@@ -1,0 +1,28 @@
+﻿@using MarkdownBlog.Services﻿
+<?xml version="1.0" encoding="utf-8"?>
+
+@model IEnumerable<MarkdownBlog.Models.BlogPost>
+
+@{ 
+    Layout = null;
+    Response.ContentType = "application/rss+xml";
+} 
+<rss version="2.0">
+<channel>
+<title>@ViewBag.BlogName</title>
+@Html.Raw(string.Format("<link>http://{0}</link>", @Request.Url.Host))
+<description>Blog RSS feed</description>
+<lastBuildDate>@Model.First().CreatedOn.ToUniversalTime().ToString("r")</lastBuildDate>
+<language>en-us</language>
+@foreach (var p in Model)
+{
+    <item>
+    <title>@Html.Encode(p.BlogPostTitle)</title>
+    @Html.Raw(string.Format("<link>http://{0}</link>", @Request.Url.Host + @Url.Action("Details", new { id = p.BlogPostId })))
+    <guid>http://@Request.Url.Host + @Url.Action("Details", new { id = p.BlogPostId })</guid>
+    <pubDate>@p.CreatedOn.ToUniversalTime().ToString("r")</pubDate>
+    <description>@HttpUtility.HtmlDecode(p.BlogPostTextHTML).Truncate(200)</description>
+    </item>
+} 
+</channel>
+</rss>

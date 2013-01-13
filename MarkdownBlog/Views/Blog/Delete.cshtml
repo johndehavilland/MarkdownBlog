@@ -1,0 +1,17 @@
+﻿@model MarkdownBlog.Models.BlogPost
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h4>Are you sure you want to delete @Html.ActionLink(@Model.BlogPostTitle, "Details", "Blog", new { id= Model.BlogPostId}, null)?</h4>
+
+@using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" class ="btn btn-medium" />
+        <button class="btn btn-medium" type="button" onclick="location.href='@Url.Action("Index", "Blog")'">Cancel</button>
+    </p>
+}

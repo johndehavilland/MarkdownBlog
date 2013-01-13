@@ -1,0 +1,13 @@
+﻿<meta content="text/html; charset=5" http-equiv="content-type" />
+<div class="btn-group">
+  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+    @ViewBag.OwnerDisplayName
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <li><a href ="mailto:@ViewBag.UserEmail">Email<img src="~/Content/images/envelope.png" style="float:right"/></a></li>
+    <li><a href ="http://www.twitter.com/@ViewBag.UserTwitter">Twitter <img src="~/Content/images/twitter-bird.png" style="float:right" /></a></li>
+      <li><a href = '@Url.Action("RSSFeed", "Blog")'>Feed<img src="~/Content/images/rss-feed.png" style="float:right"/></a></li>
+       <li><a href ='@Url.Action("About", "Blog")'>About<img src="~/Content/images/user.png" style="float:right"/></a></li>
+  </ul>
+</div>
